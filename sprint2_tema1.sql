@@ -51,17 +51,29 @@ select producto.nombre, producto.precio, fabricante.nombre from producto inner j
 /*26. Devuelve una lista de todos los productos del fabricante Lenovo.*/
 select producto.nombre, fabricante.nombre from producto inner join fabricante on producto.codigo_fabricante = fabricante.codigo where fabricante.nombre = "lenovo";
 /*27. Devuelve una lista de todos los productos del fabricante Crucial que tengan un precio mayor que 200€.*/
+select producto.*, fabricante.nombre from producto inner join fabricante on producto.codigo_fabricante = fabricante.codigo where fabricante.nombre = "crucial" and producto.precio > 200;
 /*28. Devuelve una lista con todos los productos de los fabricantes Asus, Hewlett-Packard y Seagate. Sin utilizar el operador IN.*/
+select producto.*, fabricante.nombre from producto inner join fabricante on producto.codigo_fabricante = fabricante.codigo where fabricante.nombre = "Asus" or fabricante.nombre = "Hewlett-Packard" or fabricante.nombre = "Seagate";
 /*29. Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett-Packard y Seagate. Usando el operador IN.*/
+select producto.*, fabricante.nombre from producto inner join fabricante on producto.codigo_fabricante = fabricante.codigo where fabricante.nombre in ("Asus", "Hewlett-Packard", "Seagate");
 /*30. Devuelve un listado con el nombre y el precio de todos los productos de los fabricantes cuyo nombre acabe por la vocal e.*/
+select producto.nombre, producto.precio, fabricante.nombre from producto inner join fabricante on producto.codigo_fabricante = fabricante.codigo where fabricante.nombre like "%e";
 /*31. Devuelve un listado con el nombre y precio de todos los productos de cuyos fabricantes contenga el carácter w en su nombre.*/
+select producto.nombre, producto.precio, fabricante.nombre from producto inner join fabricante on producto.codigo_fabricante = fabricante.codigo where fabricante.nombre like "%w%";
 /*32. Devuelve un listado con el nombre de producto, precio y nombre de fabricante, de todos los productos que tengan un precio mayor o igual a 180 €. Ordena el resultado, en primer lugar, por el precio (en orden descendente) y, en segundo lugar, por el nombre (en orden ascendente).*/
+select producto.nombre, producto.precio, fabricante.nombre from producto inner join fabricante on producto.codigo_fabricante = fabricante.codigo where producto.precio >= 180 order by producto.precio desc, producto.nombre asc;
 /*33. Devuelve un listado con el código y el nombre de fabricante, sólo de aquellos fabricantes que tienen productos asociados en la base de datos.*/
+select fabricante.codigo, fabricante.nombre from fabricante inner join producto on fabricante.codigo = producto.codigo_fabricante group by fabricante.codigo, fabricante.nombre;
 /*34. Devuelve un listado de todos los fabricantes que existen en la base de datos, junto con los productos que tiene cada uno de ellos. El listado deberá mostrar también a aquellos fabricantes que no tienen productos asociados.*/
+select fabricante.*, producto.nombre from fabricante left join producto on fabricante.codigo = producto.codigo_fabricante;
 /*35. Devuelve un listado en el que sólo aparezcan aquellos fabricantes que no tienen ningún producto asociado.*/
+select fabricante.*, producto.nombre from fabricante left join producto on fabricante.codigo = producto.codigo_fabricante where producto.nombre is null;
 /*36. Devuelve todos los productos del fabricante Lenovo. (Sin utilizar INNER JOIN).*/
+select producto.nombre from producto left join fabricante on producto.codigo_fabricante = fabricante.codigo where fabricante.nombre like "lenovo";
 /*37. Devuelve todos los datos de los productos que tienen el mismo precio que el producto más caro del fabricante Lenovo. (Sin utilizar INNER JOIN).*/
 /*38. Lista el nombre del producto más caro del fabricante Lenovo.*/
+select producto.nombre from producto left join fabricante on producto.codigo_fabricante = fabricante.codigo where fabricante.nombre like "lenovo" order by producto.precio desc limit 1;
 /*39. Lista el nombre del producto más barato del fabricante Hewlett-Packard.*/
+select producto.nombre from producto left join fabricante on producto.codigo_fabricante = fabricante.codigo where fabricante.nombre like "hewlett-packard" order by producto.precio asc limit 1;
 /*40. Devuelve todos los productos de la base de datos que tienen un precio mayor o igual al producto más caro del fabricante Lenovo.*/
-/*41. Lista todos los productos del fabricante Asus que tienen un precio superior al precio*/
+/*41. Lista todos los productos del fabricante Asus que tienen un precio superior al precio medio de todos sus productos.*/

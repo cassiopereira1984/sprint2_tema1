@@ -19,13 +19,18 @@ select distinct persona.* from persona inner join alumno_se_matricula_asignatura
 
 /*			Resol les 6 següents consultes utilitzant les clàusules LEFT JOIN i RIGHT JOIN.
 
-Retorna un llistat amb els noms de tots els professors/es i els departaments que tenen vinculats/des. El llistat també ha de mostrar aquells professors/es que no tenen cap departament associat. El llistat ha de retornar quatre columnes, nom del departament, primer cognom, segon cognom i nom del professor/a. El resultat estarà ordenat alfabèticament de menor a major pel nom del departament, cognoms i el nom.*/
+01. Retorna un llistat amb els noms de tots els professors/es i els departaments que tenen vinculats/des. El llistat també ha de mostrar aquells professors/es que no tenen cap departament associat. El llistat ha de retornar quatre columnes, nom del departament, primer cognom, segon cognom i nom del professor/a. El resultat estarà ordenat alfabèticament de menor a major pel nom del departament, cognoms i el nom.*/
 select departamento.nombre as nombre_departamento, persona.apellido1, persona.apellido2, persona.nombre from persona left join profesor on persona.id = profesor.id_profesor left join departamento on profesor.id_departamento = departamento.id order by departamento.nombre asc, persona.apellido1 asc, persona.apellido2 asc, persona.nombre asc;
-Retorna un llistat amb els professors/es que no estan associats a un departament.
-Retorna un llistat amb els departaments que no tenen professors/es associats.
-Retorna un llistat amb els professors/es que no imparteixen cap assignatura.
-Retorna un llistat amb les assignatures que no tenen un professor/a assignat.
-Retorna un llistat amb tots els departaments que no han impartit assignatures en cap curs escolar.
+/*02. Retorna un llistat amb els professors/es que no estan associats a un departament.*/
+select persona.* from persona left join profesor on persona.id = profesor.id_profesor where profesor.id_departamento is null;
+/*03. Retorna un llistat amb els departaments que no tenen professors/es associats.*/
+select departamento.* from departamento left join profesor on departamento.id = profesor.id_departamento where profesor.id_departamento is null;
+/*******04. Retorna un llistat amb els professors/es que no imparteixen cap assignatura.*/
+select persona.* from persona left join profesor on persona.id = profesor.id_profesor left join asignatura on profesor.id_profesor = asignatura.id_profesor where asignatura.id_profesor is null;
+/*05. Retorna un llistat amb les assignatures que no tenen un professor/a assignat*/
+select asignatura.nombre from asignatura Where asignatura.id_profesor is null; /*sin join?*/
+/*06. Retorna un llistat amb tots els departaments que no han impartit assignatures en cap curs escolar.*/
+
 
 Consultes resum:
 

@@ -1,0 +1,3 @@
+/*select departamento.nombre as nombre_departamento, persona.apellido1, persona.apellido2, persona.nombre from persona left join profesor on persona.id = profesor.id_profesor left join departamento on profesor.id_departamento = departamento.id order by departamento.nombre asc, persona.apellido1 asc, persona.apellido2 asc, persona.nombre asc;
+/*Retorna un llistat amb els professors/es que no estan associats a un departament.*/
+select persona.* from persona left join profesor on persona.id = profesor.id.profesor where profesor.id_departamento is null;

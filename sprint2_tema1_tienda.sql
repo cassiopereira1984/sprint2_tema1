@@ -70,10 +70,13 @@ select fabricante.*, producto.nombre from fabricante left join producto on fabri
 select fabricante.*, producto.nombre from fabricante left join producto on fabricante.codigo = producto.codigo_fabricante where producto.nombre is null;
 /*36. Devuelve todos los productos del fabricante Lenovo. (Sin utilizar INNER JOIN).*/
 select producto.nombre from producto left join fabricante on producto.codigo_fabricante = fabricante.codigo where fabricante.nombre like "lenovo";
-/*37. Devuelve todos los datos de los productos que tienen el mismo precio que el producto más caro del fabricante Lenovo. (Sin utilizar INNER JOIN).*/
+/******37. Devuelve todos los datos de los productos que tienen el mismo precio que el producto más caro del fabricante Lenovo. (Sin utilizar INNER JOIN).*/
+select * from producto where precio = (select max(precio) from producto where codigo_fabricante = 2);
 /*38. Lista el nombre del producto más caro del fabricante Lenovo.*/
 select producto.nombre from producto left join fabricante on producto.codigo_fabricante = fabricante.codigo where fabricante.nombre like "lenovo" order by producto.precio desc limit 1;
 /*39. Lista el nombre del producto más barato del fabricante Hewlett-Packard.*/
 select producto.nombre from producto left join fabricante on producto.codigo_fabricante = fabricante.codigo where fabricante.nombre like "hewlett-packard" order by producto.precio asc limit 1;
 /*40. Devuelve todos los productos de la base de datos que tienen un precio mayor o igual al producto más caro del fabricante Lenovo.*/
+select * from producto where precio >= (select max(precio) from producto where codigo_fabricante = 2);
 /*41. Lista todos los productos del fabricante Asus que tienen un precio superior al precio medio de todos sus productos.*/
+select * from producto where codigo_fabricante = 1 and precio > (select avg(precio) from producto);
